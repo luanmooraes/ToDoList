@@ -14,7 +14,7 @@ export const InputContainer = styled.View`
 
 export const Input = styled.TextInput`
     font-size: 30px;
-    width: 80%;
+    width: 90%;
     
 `;
 
@@ -28,4 +28,11 @@ export const AddButtonText = styled.Text`
     text-align: center;
     font-size: 60px;
     color: ${colors.red};
+`;
+
+export const ListItem = styled.Text`
+    background-color: gray;
+    font-size: 22px;
+    padding: 10px;
+    margin: 3px 7px;
 `;

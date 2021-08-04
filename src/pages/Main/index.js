@@ -1,11 +1,15 @@
 import React from 'react';
+import { FlatList, Text } from 'react-native';
 
-import { Container, InputContainer, Input, AddButton, AddButtonText } from './styles';
-
-
+import { Container, InputContainer, Input, AddButton, AddButtonText, ListItem } from './styles';
 
 const Main = () => {
-  return (
+    const data = [
+        {id:'1', title: 'Arroz', check: false},
+        {id:'2', title: 'Feijão', check: false},
+    ]
+
+    return (
       <Container>
           <InputContainer>
             <Input 
@@ -14,7 +18,14 @@ const Main = () => {
             <AddButton>
                 <AddButtonText>+</AddButtonText>
             </AddButton>
+
           </InputContainer>
+            <FlatList
+                data={data}
+                renderItem={({item}) => 
+                    <ListItem>{item.title}</ListItem>
+                }
+            />
       </Container>
   );
 };
