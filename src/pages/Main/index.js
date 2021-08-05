@@ -1,66 +1,59 @@
-import React, {useReducer, useState} from 'react';
+import React, {useState} from 'react';
 import { FlatList } from 'react-native';
-import {sha256} from 'react-native-sha256';
 
-import { Container, InputContainer, Input, AddButton, AddButtonText, ListItem } from './styles';
+import { Container, InputContainer, Input, AddButton, 
+AddButtonText, ListItem, ButtonListItem, ItemsContainer, ButtonDelete, TextButtonDelete } from './styles';
+
+import useMarketList from '../../hooks/useMarketList';
 
 const Main = () => {
-    // O estado inicial recebe um array vazio
-    const inicialState = []
-    
-    // È criada uma funçao reducer que recebe como parametros padroes 
-    // o state e a action. A logica da funcao funciona da seguinte forma:
-    // Eu tenho um switch com uma expressao action.type com algumas instruçoes 
-    // para serem executadas a partir do case escolhido. No caso desse exemplo foi
-    // disparado o case ADD quando foi pressionado o botao de Adicionar. 
-
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case 'ADD':
-                return [...state, action.item]
-                
-            default:
-                return state;
-        }
-    }
-    
-    const [item, setItem] = useState('');
-    const [state, dispatch] = useReducer(reducer, inicialState);
-    
+    const [products, setProducts] = useState('');
+    const [state, addItem, checkItem, removeItem] = useMarketList();
+      
     return (
       <Container>
           <InputContainer>
             <Input 
                 placeholder="Adicionar Produto"
-                value={item}
+                value={products}
                 onChangeText={
-                    text => {setItem(text)}
+                    text => {setProducts(text)}
                 }
             />
             <AddButton 
                 onPress={async() => {
-                    const hashId = await sha256(item);
-                    dispatch({
-                        type: 'ADD',
-                        item: {
-                            id: hashId,
-                            title: item,
-                            check: false
-                        }
-                    })
-                    setItem('')
+                    addItem(products);
+                    setProducts('');
                 }}
             >
                 <AddButtonText>+</AddButtonText>
             </AddButton>
-
           </InputContainer>
+
             <FlatList
                 data={state}
                 renderItem={({item}) => 
-                    <ListItem>{item.title}</ListItem>
+                    <ItemsContainer>
+                        <ButtonListItem
+                            onPress={() => {
+                                checkItem(item.id);   
+                            }} 
+                        
+                        >
+                            <ListItem style={{}}>{item.title}</ListItem>
+                        </ButtonListItem>
+
+                        <ButtonDelete
+                            onPress={() => {
+                                removeItem(item.id);
+                            }}    
+                        >
+                            <TextButtonDelete>Remover</TextButtonDelete>
+                        </ButtonDelete>
+                    </ItemsContainer>
                 }
             />
+
       </Container>
   );
 };
