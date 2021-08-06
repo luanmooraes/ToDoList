@@ -9,7 +9,7 @@ const inicialState = []; // state = os elementos
     // o state e a action. A logica da funcao funciona da seguinte forma:
     // Eu tenho um switch com uma expressao action.type com algumas instruçoes 
     // para serem executadas a partir do case escolhido. No caso desse exemplo foi
-    // disparado o case ADD quando foi pressionado o botao de Adicionar. 
+    // disparado o case ADD quando foi pressionado o botao d Adicionar. 
 const reducer = (state, action) => {
     switch (action.type) {
         case 'ADD':

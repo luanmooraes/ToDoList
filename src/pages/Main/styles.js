@@ -52,5 +52,5 @@ export const ButtonDelete = styled.TouchableOpacity`
 
 export const TextButtonDelete = styled.Text`
     font-size: 12px;
-    color: red;
+    color: ${colors.red};
 `;
